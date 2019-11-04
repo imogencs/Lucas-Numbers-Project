@@ -19,7 +19,7 @@ void LucasPrint (int n, int val) {
 void LucasNumbers(int targetN, int currentN, int nMinusOne, int nMinusTwo) {
 	int thisNum = nMinusOne + nMinusTwo;
 	LucasPrint(currentN, thisNum);
-	if (targetN-1 >= currentN) {
+	if (targetN > currentN) {
 		LucasNumbers(targetN, currentN+1, thisNum, nMinusOne);
 	}
 }
