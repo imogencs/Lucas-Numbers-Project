@@ -12,37 +12,38 @@ using namespace std;
 
 int *sizes = new int[16];
 
-void remove(int* arr, int *dest, int target, int size) {
-	int i = 0;
-	for (int j = 0; j < size; j++) {
-		if (j > target) {
-			dest[i] = arr[j];
-			i++;
+//void remove(int* arr, int *dest, int target, int size) {
+//	int i = 0;
+//	for (int j = 0; j < size; j++) {
+//		if (j != target) {
+//			dest[i] = arr[j];
+//			i++;
+//		}
+//	}
+//}
+
+
+void sumCombos(int currentSum, int numsInCombo, int *combo, int *cindex, int startIndex) {
+	for (int i = startIndex; i < SQUARE_SIZE; i++) {
+
+		if (MAGIC_SQUARE[i] < (MAGIC_CONSTANT - currentSum)) {
+			combo[numsInCombo - 1] = MAGIC_SQUARE[i];
+			cindex[numsInCombo - 1] = i;
+			if (i < SQUARE_SIZE - 1)
+				sumCombos(currentSum+MAGIC_SQUARE[i], numsInCombo+1, combo, cindex,i+1);
 		}
-	}
-}
-
-
-void sumCombos(int currentSum, int *arr, int arrSize, int numsInCombo, int *combo) {
-	for (int i = 0; i < arrSize; i++) {
-		int *dest = new int[arrSize-1];
-		remove(arr, dest, i, arrSize);
-
-		if (arr[i] < (33 - currentSum)) {
-			combo[numsInCombo - 1] = arr[i];
-			sumCombos(currentSum+arr[i], dest, arrSize-1, numsInCombo+1, combo);
-		}
-		else if (arr[i] == (33 - currentSum)) {
-			combo[numsInCombo - 1] = arr[i];
-			currentSum += arr[i];
+		else if (MAGIC_SQUARE[i] == (MAGIC_CONSTANT - currentSum)) {
+			combo[numsInCombo - 1] = MAGIC_SQUARE[i];
+			cindex[numsInCombo - 1] = i;
+			currentSum += MAGIC_SQUARE[i];
 			sizes[numsInCombo]++;
 
-			if (numsInCombo == 4) {
+			if (numsInCombo == 3) {
 				for (int j = 0; j < numsInCombo; j++) {
-								cout << combo[j] << " ";
-							}
-							cout << "\tcurrent: " << currentSum;
-				cout << "\t " << sizes[numsInCombo] << endl;
+					cout << combo[j] << "(" << cindex[j] << ") ";
+				}
+			cout << "\t" << sizes[numsInCombo];
+			cout << endl;
 			}
 		}
 	}
@@ -54,11 +55,13 @@ int main () {
 	}
 
 	int *combo = new int[16];
-	sumCombos(0, MAGIC_SQUARE, 16, 1, combo);
+	int *cindex = new int[16];
+	sumCombos(0, 1, combo, cindex, 0);
 
-	for (int i = 1; i < 16; i++) {
+	for (int i = 1; i < 7; i++) {
 		cout << "Sums of 33 for " << i << " elements:\t" << sizes[i] << endl;
 	}
+	cout << "Sums of 33 for 8 elements:	0" << endl;
 
 	return 1;
 }
