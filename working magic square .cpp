@@ -45,11 +45,21 @@ int main () {
 	int *combo = new int[SQUARE_SIZE];
 	combosForEachSum();
 
+	int maxCombos = 0;
+	int sumWithMaxCombos = 0;
 	for (int targetSum = 0; targetSum <= MAX_TARGET_SUM; targetSum++) {
 		for (int i = 1; i <= SQUARE_SIZE; i++) {
 			cout << "Sums of " << targetSum << " for " << i << " elements:\t";
 			cout << sizes[targetSum][i] << endl;
+			if (sizes[targetSum][i] > maxCombos) {
+				maxCombos = sizes[targetSum][i];
+				sumWithMaxCombos = targetSum;
+			}
 		}
 	}
+
+	cout << "The sum with the most combinations was " << sumWithMaxCombos;
+	cout << ", which can be created with " << maxCombos << " combinations. " << endl;
+
 	return 1;
 }
