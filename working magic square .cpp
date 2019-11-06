@@ -10,7 +10,7 @@
 #include "SuribachsMagicSquare.h"
 using namespace std;
 
-int MAX_TARGET_SUM = 33;
+int MAX_TARGET_SUM = 132;
 int **sizes = new int*[MAX_TARGET_SUM+1];
 
 void sumCombos(int currentSum, int numsInCombo, int *combo, int startIndex, int targetSum) {
@@ -46,7 +46,7 @@ int main () {
 	combosForEachSum();
 
 	for (int targetSum = 0; targetSum <= MAX_TARGET_SUM; targetSum++) {
-		for (int i = 1; i < SQUARE_SIZE; i++) {
+		for (int i = 1; i <= SQUARE_SIZE; i++) {
 			cout << "Sums of " << targetSum << " for " << i << " elements:\t";
 			cout << sizes[targetSum][i] << endl;
 		}
