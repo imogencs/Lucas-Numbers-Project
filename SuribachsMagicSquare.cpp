@@ -1,8 +1,8 @@
 //============================================================================
 // Name        : SuribachsMagicSquare.cpp
 // Author      : Imogen Cleaver-Stigum & Jyalu Wu
-// Version     :
-// Copyright   : Your copyright notice
+// Version     : 11/8/19
+// Copyright   : ©2019 IMOLU
 // Description : Suribachs Magic Square in C++
 //============================================================================
 
@@ -10,59 +10,57 @@
 #include "SuribachsMagicSquare.h"
 using namespace std;
 
-int *sizes = new int[16];
+int MAX_TARGET_SUM = 132;
+int **sizes = new int*[MAX_TARGET_SUM+1];
 
-//void remove(int* arr, int *dest, int target, int size) {
-//	int i = 0;
-//	for (int j = 0; j < size; j++) {
-//		if (j != target) {
-//			dest[i] = arr[j];
-//			i++;
-//		}
-//	}
-//}
-
-
-void sumCombos(int currentSum, int numsInCombo, int *combo, int *cindex, int startIndex) {
+void sumCombos(int currentSum, int numsInCombo, int *combo, int startIndex, int targetSum) {
+	if (targetSum == 0) {
+		sizes[targetSum][0] = 1;
+	}
 	for (int i = startIndex; i < SQUARE_SIZE; i++) {
-
-		if (MAGIC_SQUARE[i] < (MAGIC_CONSTANT - currentSum)) {
+		if (MAGIC_SQUARE[i] < (targetSum - currentSum)) {
 			combo[numsInCombo - 1] = MAGIC_SQUARE[i];
-			cindex[numsInCombo - 1] = i;
-			if (i < SQUARE_SIZE - 1)
-				sumCombos(currentSum+MAGIC_SQUARE[i], numsInCombo+1, combo, cindex,i+1);
+			sumCombos(currentSum+MAGIC_SQUARE[i], numsInCombo+1, combo, i+1, targetSum);
 		}
-		else if (MAGIC_SQUARE[i] == (MAGIC_CONSTANT - currentSum)) {
+		else if (MAGIC_SQUARE[i] == (targetSum - currentSum)) {
 			combo[numsInCombo - 1] = MAGIC_SQUARE[i];
-			cindex[numsInCombo - 1] = i;
-			currentSum += MAGIC_SQUARE[i];
-			sizes[numsInCombo]++;
-
-			if (numsInCombo == 3) {
-				for (int j = 0; j < numsInCombo; j++) {
-					cout << combo[j] << "(" << cindex[j] << ") ";
-				}
-			cout << "\t" << sizes[numsInCombo];
-			cout << endl;
-			}
+			sizes[targetSum][numsInCombo]++;
 		}
+	}
+}
+
+void combosForEachSum() {
+	int *combo = new int[SQUARE_SIZE];
+	for (int i = 0; i <= MAX_TARGET_SUM; i++) {
+		sumCombos(0, 1, combo, 0, i);
 	}
 }
 
 int main () {
-	for (int i = 0; i < 16; i++) {
-		sizes[i] = 0;
+	for (int i = 0; i <= MAX_TARGET_SUM; i++) {
+		sizes[i] = new int[SQUARE_SIZE];
+		for (int j = 0; j < SQUARE_SIZE; j++) {
+			sizes[i][j] = 0;
+		}
+	}
+	combosForEachSum();
+
+	int maxCombos = 0;
+	int sumWithMaxCombos = 0;
+	cout << "Sums of 0 for 0 elements: \t" << sizes[0][0] << endl;
+	for (int targetSum = 0; targetSum <= MAX_TARGET_SUM; targetSum++) {
+		for (int i = 1; i <= SQUARE_SIZE; i++) {
+			cout << "Sums of " << targetSum << " for " << i << " elements:\t";
+			cout << sizes[targetSum][i] << endl;
+			if (sizes[targetSum][i] > maxCombos) {
+				maxCombos = sizes[targetSum][i];
+				sumWithMaxCombos = targetSum;
+			}
+		}
 	}
 
-	int *combo = new int[16];
-	int *cindex = new int[16];
-	sumCombos(0, 1, combo, cindex, 0);
-
-	for (int i = 1; i < 7; i++) {
-		cout << "Sums of 33 for " << i << " elements:\t" << sizes[i] << endl;
-	}
-	cout << "Sums of 33 for 8 elements:	0" << endl;
+	cout << "The sum with the most combinations was " << sumWithMaxCombos;
+	cout << ", which can be created with " << maxCombos << " combinations. " << endl;
 
 	return 1;
 }
-

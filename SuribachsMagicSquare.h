@@ -1,9 +1,10 @@
-/*
- * SuribachsMagicSquare.h
- *
- *  Created on: Nov 5, 2019
- *      Author: Jyalu
- */
+//============================================================================
+// Name        : SuribachsMagicSquare.h
+// Author      : Imogen Cleaver-Stigum & Jyalu Wu
+// Version     : 11/8/19
+// Copyright   : ©2019 IMOLU
+// Description : Suribachs Magic Square in C++
+//============================================================================
 
 #ifndef SURIBACHSMAGICSQUARE_H_
 #define SURIBACHSMAGICSQUARE_H_
@@ -18,7 +19,8 @@ int MAGIC_SQUARE[16] = {
 		13, 2, 3, 15
 };
 
-//int numCombos(int* magicSquare, int currentIndex, int* current,
-//		int squareIndex);
+void sumCombos(int currentSum, int numsInCombo, int *combo, int startIndex, int targetSum);
+void combosForEachSum();
+
 
 #endif /* SURIBACHSMAGICSQUARE_H_ */
