@@ -1,0 +1,46 @@
+Imogen Cleaver-Stigum and Jyalu Wu
+CS 2223 Algorithms HW2
+8 November 2018
+Question 1
+R(n) = 4R(n-1) - 3R(n-2)
+R(0) = 2
+R(1) = 8
+
+R(n) - 4R(n-1) + 3R(n-2) = 0
+r^2 - 4r + 3 = 0
+r = [ 4 +/- sqrt(16-12) ] / 2
+  = 1 or 3
+
+R(n) = A (1^n) + B (3^n) 
+
+R(0) = A + B = 2
+R(1) = A + 3B = 8
+B = 3
+A = -1
+
+R(n) = 3 (3^n) - 1
+R(n) = 3^(n+1) - 1
+
+This recurrence has an order of growth of Θ(2^n) because it is recursive. We can use theta instead of O 
+because the worst case and best case are both O(2^n).  Computing the non-recursive definition, however, 
+would take constant time in any case, Θ(1). 
+
+Question 2
+In addition to the Lucas Numbers, Edouard Lucas is also known for the Lucas Sequences, which are also 
+defined both as recursive sequences and recurrence relations. 
+
+Question 3
+The ratio between the time of each consecutive Lucas number computation was about 1.6, which is the golden 
+ratio. This shows that the algorithm has exponential time complexity because time n increases by 1, the time 
+is multiplied. Therefore it is O(2^n) time. 
+
+Our original algorithm for computing the Lucas numbers had O(n) time because it used the accumulator method 
+instead of the recursive definition, so the ratios between consecutive computation times were closer to 1. There 
+would also be a way to compute L(n) in O(1) time using the non-recursive definition. 
+
+Question 4
+The magic square sum with the largest number of combinations was 66, which can be created with 1364 combinations. 
+This is significant because 66 is half of 132, which is the highest sum that can be created from the square (the 
+sum of all 16 numbers in the square). 
+
+
