@@ -1,7 +1,7 @@
 //============================================================================
 // Name        : LucasNumbers.cpp
 // Author      : Imogen Cleaver-Stigum & Jyalu Wu
-// Version     :
+// Version     : 11/8/19
 // Copyright   : Your copyright notice
 // Description : Lucas Number Calculator C++
 //============================================================================
@@ -12,10 +12,7 @@
 #define LUCASNUMBERS_H_
 
 int main(int argc, char** argv);
-long long slowLucasNumbers(int n, long long* answers, float* times, clock_t startTime);
-clock_t LucasNumbers(int n);
-clock_t nextLucasNumber(int targetN, int currentN, long long nMinusOne, long long nMinusTwo,
-		clock_t startTime, float prevTime);
-void LucasPrint (int n, long long val, clock_t time, float pTime);
+long long LucasNumbers(int n, long long* answers, float* times, clock_t startTime);
+void LucasPrint(int n, long long* answers, float* times, clock_t startTime);
 
 #endif /* LUCASNUMBERS_H_ */
